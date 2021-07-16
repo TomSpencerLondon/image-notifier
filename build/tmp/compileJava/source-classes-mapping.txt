@@ -1,0 +1,2 @@
+cloud/developing/imageanalyzer/notifier/Notifier.java
+ cloud.developing.imageanalyzer.notifier.Notifier

@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda function for notification
+Resources:
+  imageAnalyzerLambdaNotifier:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: image-analyzer-lambda-notifier
+      AutoPublishAlias: prod
+      Handler: cloud.developing.imageanalyzer.notifier.Notifier::send
+      Runtime: java11
+      CodeUri: s3://tomspencer-sns-deploy/858765d06c5e62885cbf51dd5bef9d3c
+      MemorySize: 512
+      Timeout: 30
+      Role:
+        Fn::Sub: arn:aws:iam::${AWS::AccountId}:role/*
+      Environment:
+        Variables:
+          TOPIC_ARN:
+            Fn::Sub: arn:aws:sns:${AWS::Region}:${AWS::AccountId}:image-analyzer-topic
+          RECIPIENTS: notify@developing.cloud
+          FROM: ia@developing.cloud
